@@ -1,0 +1,32 @@
+services:
+  db:
+    build: 
+     dockerfile: docker-build
+    image: postgres_br:16.4
+    container_name: local_pgdb
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: usuariopg
+      POSTGRES_PASSWORD: senhapg
+      POSTGRES_DB: desenvolvimento_db
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./inserts.sql:/docker-entrypoint-initdb.d/inserts.sql
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: on-failure:5 
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  local_pgdata:
+  pgadmin-data:
