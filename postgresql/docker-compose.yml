@@ -1,31 +1,20 @@
 services:
   db:
-    build: 
-     dockerfile: docker-build
-    image: postgres_br:16.4
-    container_name: local_pgdb
+    image: postgres:17-alpine
+    container_name: postgres_local_alpine
     restart: always
-    ports:
-      - "5432:5432"
+    shm_size: 128mb
     environment:
-      POSTGRES_USER: usuariopg
-      POSTGRES_PASSWORD: senhapg
-      POSTGRES_DB: desenvolvimento_db
-    volumes:
-      - local_pgdata:/var/lib/postgresql/data
-      - ./create-db-env.sql:/docker-entrypoint-initdb.d/init.sql  
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin4_container
-    restart: on-failure:5 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=pt-BR"
     ports:
-      - "8888:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+      - "5433:5432"
     volumes:
-      - pgadmin-data:/var/lib/pgadmin
-
+      - pgdata:/var/lib/postgresql/data
+      - ./create-db-env.sql:/docker-entrypoint-initdb.d/create_database.sql
 volumes:
-  local_pgdata:
-  pgadmin-data:
+  pgdata:
+    driver: "local"
+    
