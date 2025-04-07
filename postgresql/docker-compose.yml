@@ -5,16 +5,13 @@ services:
     restart: always
     shm_size: 128mb
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: fred
+      POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=pt-BR"
-    ports:
-      - "5433:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./create-db-env.sql:/docker-entrypoint-initdb.d/create_database.sql
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
 volumes:
   pgdata:
-    driver: "local"
-    
