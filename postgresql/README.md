@@ -61,3 +61,6 @@ docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 docker volume prune
 ```
+
+## Para excluir todos os volumes
+docker volume rm $(docker volume ls -q --filter dangling=true)
