@@ -1,7 +1,7 @@
 
 
 ### Instruções de Uso
-Crie, no mesmo diretório em que está o **_docker-compose.yml_** um arquivom com o nome **.env** e insira nele o seguinte conteúdo:
+Crie, no mesmo diretório em que está o **_docker-compose.yml_**, um arquivo com o nome **.env** e insira nele o seguinte conteúdo:
 
 ```text
 
