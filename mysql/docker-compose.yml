@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql:9.3.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      - MYSQL_DATABASE=mysqlDB
+      - MYSQL_ROOT_PASSWORD=mysqlDB
+      - MYSQL_USER=mysqlDB
+      - MYSQL_PASSWORD=mysqlDB
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-volume:/var/lib/mysql
+volumes:
+  mysql-volume:
+    driver: local
